@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,27 +8,198 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Modal,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useMealContext } from '../../contexts/MealContext';
 
-const restaurants = [
-  { name: 'Dining Hall West', closing: 'Closes in 5 Hours' },
-  { name: 'Papa Johns', closing: 'Closes in 3 Hours' },
-  { name: 'Einstein Bros Bagels', closing: 'Closes in 5 Hours' },
-  { name: 'Einstein Bros Bagels', closing: 'Closes in 5 Hours' },
+// Test meal data
+const testMeals = [
+  {
+    id: 1,
+    name: "Grilled Chicken Bowl",
+    calories: 450,
+    protein: 35,
+    carbs: 45,
+    fats: 12,
+  },
+  {
+    id: 2,
+    name: "Salmon Quinoa Salad",
+    calories: 380,
+    protein: 28,
+    carbs: 32,
+    fats: 18,
+  },
+  {
+    id: 3,
+    name: "Turkey Avocado Wrap",
+    calories: 420,
+    protein: 25,
+    carbs: 38,
+    fats: 22,
+  },
+  {
+    id: 4,
+    name: "Veggie Power Bowl",
+    calories: 320,
+    protein: 18,
+    carbs: 52,
+    fats: 8,
+  },
+  {
+    id: 5,
+    name: "Beef Stir Fry",
+    calories: 480,
+    protein: 32,
+    carbs: 28,
+    fats: 26,
+  },
 ];
 
-const RestaurantCard = ({ name, closing }: { name: string; closing: string }) => (
-  <TouchableOpacity style={styles.restaurantCard}>
-    <View style={styles.restaurantInfo}>
-      <Text style={styles.restaurantName}>{name}</Text>
-      <Text style={styles.closingTime}>{closing}</Text>
+const restaurants = [
+  { id: 1, name: 'Dining Hall West', closing: 'Closes in 5 Hours' },
+  { id: 2, name: 'Papa Johns', closing: 'Closes in 3 Hours' },
+  { id: 3, name: 'Einstein Bros Bagels', closing: 'Closes in 5 Hours' },
+  { id: 4, name: 'Einstein Bros Bagels', closing: 'Closes in 5 Hours' },
+];
+
+const RestaurantCard = ({ 
+  id, 
+  name, 
+  closing, 
+  isExpanded, 
+  onPress,
+  onGenerateMeal
+}: { 
+  id: number;
+  name: string; 
+  closing: string;
+  isExpanded: boolean;
+  onPress: () => void;
+  onGenerateMeal: () => void;
+}) => (
+  <View style={styles.restaurantCardContainer}>
+    <TouchableOpacity 
+      style={[
+        styles.restaurantCard, 
+        isExpanded && styles.restaurantCardExpanded
+      ]} 
+      onPress={onPress}
+    >
+      <View style={styles.restaurantInfo}>
+        <Text style={styles.restaurantName}>{name}</Text>
+        <Text style={styles.closingTime}>{closing}</Text>
+      </View>
+      <Text style={[styles.chevronText, isExpanded && styles.chevronRotated]}>⌄</Text>
+      
+      {isExpanded && (
+        <View style={styles.generateButtonContainer}>
+          <TouchableOpacity style={styles.generateButton} onPress={onGenerateMeal}>
+            <Text style={styles.generateButtonText}>Generate a Meal!</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </TouchableOpacity>
+  </View>
+);
+
+const MealPopup = ({ 
+  visible, 
+  meal, 
+  onClose, 
+  onAddToDiary, 
+  onGenerateAnother 
+}: { 
+  visible: boolean;
+  meal: any;
+  onClose: () => void;
+  onAddToDiary: () => void;
+  onGenerateAnother: () => void;
+}) => (
+  <Modal
+    visible={visible}
+    transparent={true}
+    animationType="fade"
+    onRequestClose={onClose}
+  >
+    <View style={styles.modalOverlay}>
+      <View style={styles.modalContent}>
+        {/* Close Button */}
+        <TouchableOpacity style={styles.closeButton} onPress={onClose}>
+          <Text style={styles.closeButtonText}>✕</Text>
+        </TouchableOpacity>
+
+        {/* Meal Header */}
+        <View style={styles.mealHeader}>
+          <Text style={styles.mealName}>{meal?.name}</Text>
+        </View>
+
+        {/* Calories */}
+        <View style={styles.caloriesContainer}>
+          <Text style={styles.caloriesValue}>{meal?.calories}</Text>
+          <Text style={styles.caloriesLabel}>Calories</Text>
+        </View>
+
+        {/* Macros */}
+        <View style={styles.macrosContainer}>
+          <View style={styles.macroItem}>
+            <Text style={styles.macroValue}>{meal?.protein}g</Text>
+            <Text style={styles.macroLabel}>Protein</Text>
+          </View>
+          <View style={styles.macroItem}>
+            <Text style={styles.macroValue}>{meal?.carbs}g</Text>
+            <Text style={styles.macroLabel}>Carbohydrates</Text>
+          </View>
+          <View style={styles.macroItem}>
+            <Text style={styles.macroValue}>{meal?.fats}g</Text>
+            <Text style={styles.macroLabel}>Fats</Text>
+          </View>
+        </View>
+
+        {/* Action Buttons */}
+        <View style={styles.actionButtons}>
+          <TouchableOpacity style={styles.addToDiaryButton} onPress={onAddToDiary}>
+            <Text style={styles.addToDiaryText}>Add to Diary</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.generateAnotherButton} onPress={onGenerateAnother}>
+            <Text style={styles.generateAnotherText}>Regenerate</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
-    <Text style={styles.chevronText}>⌄</Text>
-  </TouchableOpacity>
+  </Modal>
 );
 
 const DashboardScreen = () => {
+  const [expandedRestaurant, setExpandedRestaurant] = useState<number | null>(null);
+  const [mealPopupVisible, setMealPopupVisible] = useState(false);
+  const [currentMeal, setCurrentMeal] = useState<any>(null);
+  const { addMeal } = useMealContext();
+
+  const handleRestaurantPress = (restaurantId: number) => {
+    setExpandedRestaurant(expandedRestaurant === restaurantId ? null : restaurantId);
+  };
+
+  const handleGenerateMeal = () => {
+    const randomMeal = testMeals[Math.floor(Math.random() * testMeals.length)];
+    setCurrentMeal(randomMeal);
+    setMealPopupVisible(true);
+  };
+
+  const handleAddToDiary = () => {
+    if (currentMeal) {
+      addMeal(currentMeal);
+      setMealPopupVisible(false);
+      setCurrentMeal(null);
+    }
+  };
+
+  const handleGenerateAnother = () => {
+    const randomMeal = testMeals[Math.floor(Math.random() * testMeals.length)];
+    setCurrentMeal(randomMeal);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#3B2F87" />
@@ -85,8 +256,25 @@ const DashboardScreen = () => {
 
         {/* Restaurant List */}
         <ScrollView style={styles.restaurantList} showsVerticalScrollIndicator={false}>
-          {restaurants.map((r, i) => <RestaurantCard key={i} {...r} />)}
+          {restaurants.map((r) => (
+            <RestaurantCard 
+              key={r.id} 
+              {...r} 
+              isExpanded={expandedRestaurant === r.id}
+              onPress={() => handleRestaurantPress(r.id)}
+              onGenerateMeal={handleGenerateMeal}
+            />
+          ))}
         </ScrollView>
+
+        {/* Meal Popup */}
+        <MealPopup
+          visible={mealPopupVisible}
+          meal={currentMeal}
+          onClose={() => setMealPopupVisible(false)}
+          onAddToDiary={handleAddToDiary}
+          onGenerateAnother={handleGenerateAnother}
+        />
       </View>
     </SafeAreaView>
   );
@@ -212,14 +400,21 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
   },
+  restaurantCardContainer: {
+    marginBottom: 15,
+  },
   restaurantCard: {
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     borderRadius: 12,
     padding: 20,
-    marginBottom: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  restaurantCardExpanded: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    flexDirection: 'column',
+    alignItems: 'stretch',
   },
   restaurantInfo: {
     flex: 1,
@@ -238,6 +433,130 @@ const styles = StyleSheet.create({
   chevronText: {
     color: 'white',
     fontSize: 16,
+    transform: [{ rotate: '0deg' }],
+  },
+  chevronRotated: {
+    transform: [{ rotate: '180deg' }],
+  },
+  generateButtonContainer: {
+    marginTop: 15,
+    paddingTop: 15,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  generateButton: {
+    backgroundColor: 'white',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  generateButtonText: {
+    color: '#3B2F87',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 20,
+    width: '80%',
+    maxHeight: '80%',
+    position: 'relative',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 15,
+    left: 15,
+    zIndex: 1,
+  },
+  closeButtonText: {
+    fontSize: 24,
+    color: '#6B7280',
+    fontWeight: 'bold',
+  },
+  mealHeader: {
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 15,
+  },
+  mealName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  caloriesContainer: {
+    alignItems: 'center',
+    marginBottom: 25,
+  },
+  caloriesValue: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#3B2F87',
+  },
+  caloriesLabel: {
+    color: '#6B7280',
+    fontSize: 14,
+    marginTop: 2,
+  },
+  macrosContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 25,
+    paddingHorizontal: 10,
+  },
+  macroItem: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  macroValue: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#3B2F87',
+  },
+  macroLabel: {
+    color: '#6B7280',
+    fontSize: 12,
+    marginTop: 2,
+  },
+  actionButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+  addToDiaryButton: {
+    backgroundColor: '#3B2F87',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    flex: 1,
+    alignItems: 'center',
+  },
+  addToDiaryText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  generateAnotherButton: {
+    backgroundColor: 'white',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    flex: 1,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#3B2F87',
+  },
+  generateAnotherText: {
+    color: '#3B2F87',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 
