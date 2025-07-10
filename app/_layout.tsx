@@ -25,8 +25,21 @@ export default function RootLayout() {
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="login" options={{ headerShown: false }} />
           <Stack.Screen name="signup" options={{ headerShown: false }} />
+          <Stack.Screen name="welcome" options={{ headerShown: false }} />
+          <Stack.Screen name="personalInformation" options={{ headerShown: false }} />
+          <Stack.Screen name="nutritionGoal" options={{ headerShown: false }} />
+          <Stack.Screen name="preferences" options={{ headerShown: false }} />
+          <Stack.Screen name="ready" options={{ headerShown: false }} />
+          <Stack.Screen name="login" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding/welcomeFirst" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding/welcome" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding/personalInformation" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding/nutritionGoal" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding/preferences" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding/ready" options={{ headerShown: false }} />
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />

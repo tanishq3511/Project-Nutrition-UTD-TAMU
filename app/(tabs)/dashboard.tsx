@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TextInput,
   Modal,
+  ImageBackground
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useMealContext } from '../../contexts/MealContext';
@@ -203,79 +204,84 @@ const DashboardScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#3B2F87" />
-      <LinearGradient
-        colors={['#3B2F87', '#6B46C1', '#8B5CF6']}
-        style={StyleSheet.absoluteFillObject}
-      />
-      <View style={{ flex: 1 }}>
-        {/* Header */}
-        <View style={styles.header}>
-          <View style={styles.headerLeft}>
-            <View style={styles.menuIcon}>
-              {[...Array(3)].map((_, i) => <View key={i} style={styles.menuLine} />)}
-            </View>
-            <View>
-              <Text style={styles.greeting}>Good Afternoon</Text>
-              <Text style={styles.name}>Dhivyesh!</Text>
+      <ImageBackground
+        source={require('../../assets/images/bg.jpg')}
+        style={StyleSheet.absoluteFill}
+        resizeMode="contain"
+        imageStyle={{ transform: [{ scale: 4.8 }, { translateX: 90 }, {translateY: 0}] }}
+      >
+        <View style={{ flex: 1 }}>
+          {/* Header */}
+          <View style={styles.header}>
+            <View style={[styles.headerLeft, { marginTop: 80, flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }]}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <View style={styles.menuIcon}>
+                  {[...Array(3)].map((_, i) => <View key={i} style={styles.menuLine} />)}
+                </View>
+                <View>
+                  <Text style={styles.greeting}>Good Afternoon</Text>
+                  <Text style={styles.name}>Dhivyesh!</Text>
+                </View>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                {['🚶', '🚲'].map((icon, i) => (
+                  <TouchableOpacity key={i} style={styles.iconButton}>
+                    <Text style={styles.iconText}>{icon}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
             </View>
           </View>
-          <View style={styles.headerRight}>
-            {['🚶', '🚲'].map((icon, i) => (
-              <TouchableOpacity key={i} style={styles.iconButton}>
-                <Text style={styles.iconText}>{icon}</Text>
+
+          {/* Search Bar */}
+          <View style={styles.searchContainer}>
+            <Text style={styles.searchIconText}>🔍</Text>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Your order?"
+              placeholderTextColor="#9CA3AF"
+            />
+            <Text style={styles.qrIconText}>📱</Text>
+          </View>
+
+          {/* Lunch Status */}
+          <View style={styles.statusContainer}>
+            <Text style={styles.statusText}>Lunch is served!</Text>
+            <Text style={styles.lastUpdated}>Last Updated March 25 2:00 PM</Text>
+          </View>
+
+          {/* Filter Buttons */}
+          <View style={styles.filterContainer}>
+            {['Dining Hall', 'Restaurants', 'Market'].map((label, i) => (
+              <TouchableOpacity key={label} style={[styles.filterButton, i === 0 && styles.activeFilter]}>
+                <Text style={i === 0 ? styles.filterTextActive : styles.filterText}>{label}</Text>
               </TouchableOpacity>
             ))}
           </View>
-        </View>
 
-        {/* Search Bar */}
-        <View style={styles.searchContainer}>
-          <Text style={styles.searchIconText}>🔍</Text>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Your order?"
-            placeholderTextColor="#9CA3AF"
+          {/* Restaurant List */}
+          <ScrollView style={styles.restaurantList} showsVerticalScrollIndicator={false}>
+            {restaurants.map((r) => (
+              <RestaurantCard 
+                key={r.id} 
+                {...r} 
+                isExpanded={expandedRestaurant === r.id}
+                onPress={() => handleRestaurantPress(r.id)}
+                onGenerateMeal={handleGenerateMeal}
+              />
+            ))}
+          </ScrollView>
+
+          {/* Meal Popup */}
+          <MealPopup
+            visible={mealPopupVisible}
+            meal={currentMeal}
+            onClose={() => setMealPopupVisible(false)}
+            onAddToDiary={handleAddToDiary}
+            onGenerateAnother={handleGenerateAnother}
           />
-          <Text style={styles.qrIconText}>📱</Text>
         </View>
-
-        {/* Lunch Status */}
-        <View style={styles.statusContainer}>
-          <Text style={styles.statusText}>Lunch is served!</Text>
-          <Text style={styles.lastUpdated}>Last Updated March 25 2:00 PM</Text>
-        </View>
-
-        {/* Filter Buttons */}
-        <View style={styles.filterContainer}>
-          {['Dining Hall', 'Restaurants', 'Market'].map((label, i) => (
-            <TouchableOpacity key={label} style={[styles.filterButton, i === 0 && styles.activeFilter]}>
-              <Text style={i === 0 ? styles.filterTextActive : styles.filterText}>{label}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        {/* Restaurant List */}
-        <ScrollView style={styles.restaurantList} showsVerticalScrollIndicator={false}>
-          {restaurants.map((r) => (
-            <RestaurantCard 
-              key={r.id} 
-              {...r} 
-              isExpanded={expandedRestaurant === r.id}
-              onPress={() => handleRestaurantPress(r.id)}
-              onGenerateMeal={handleGenerateMeal}
-            />
-          ))}
-        </ScrollView>
-
-        {/* Meal Popup */}
-        <MealPopup
-          visible={mealPopupVisible}
-          meal={currentMeal}
-          onClose={() => setMealPopupVisible(false)}
-          onAddToDiary={handleAddToDiary}
-          onGenerateAnother={handleGenerateAnother}
-        />
-      </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -318,9 +324,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  headerRight: {
-    flexDirection: 'row',
   },
   iconButton: {
     width: 40,

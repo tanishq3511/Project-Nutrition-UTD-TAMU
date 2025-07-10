@@ -1,35 +1,39 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Alert, ImageBackground } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors } from '../constants/Colors';
-import { auth } from '../firebase/firebase';
-import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Ionicons } from '@expo/vector-icons';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCmhKtCH5SPH61TfoeOFWaJL4_OKM1D1eY",
+  authDomain: "smartbite-2e190.firebaseapp.com",
+  projectId: "smartbite-2e190",
+  storageBucket: "smartbite-2e190.firebasestorage.app",
+  messagingSenderId: "69948200501",
+  appId: "1:69948200501:web:61ab5d44b7118231d6837c",
+  measurementId: "G-69VTYMVFMS"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [info, setInfo] = useState('');
   const router = useRouter();
 
   const handleLogin = async () => {
     setError('');
-    setInfo('');
     if (!email || !password) {
       setError('Please fill in all fields.');
       return;
     }
     setLoading(true);
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      if (!userCredential.user.emailVerified) {
-        await signOut(auth);
-        setError('Please verify your email before logging in.');
-        setInfo('A verification email was sent to your address.');
-        return;
-      }
+      await signInWithEmailAndPassword(auth, email, password);
       router.replace('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Login failed.');
@@ -43,39 +47,44 @@ export default function LoginScreen() {
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <LinearGradient
-        colors={['#3B2F87', '#6B46C1', '#8B5CF6']}
-        style={StyleSheet.absoluteFillObject}
-      />
-      <View style={styles.container}>
-        <Text style={styles.title}>Welcome Back</Text>
-        <Text style={styles.subtitle}>Login to your account</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          placeholderTextColor="#9CA3AF"
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          placeholderTextColor="#9CA3AF"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        {error ? <Text style={styles.errorText}>{error}</Text> : null}
-        {info ? <Text style={styles.infoText}>{info}</Text> : null}
-        <TouchableOpacity style={[styles.button, loading && { opacity: 0.6 }]} onPress={handleLogin} disabled={loading}>
-          <Text style={styles.buttonText}>{loading ? 'Logging In...' : 'Login'}</Text>
+      <ImageBackground
+        source={require('../assets/images/bg.jpg')}
+        style={StyleSheet.absoluteFill}
+        resizeMode="contain"
+        imageStyle={{ transform: [{ scale: 4.8 }, { translateX: 90 }] }}
+      >
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+          <Text style={styles.backArrow}>←</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/signup')} style={styles.linkContainer}>
-          <Text style={styles.linkText}>Don't have an account? <Text style={styles.linkHighlight}>Sign up</Text></Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.container}>
+          <Text style={styles.title}>Welcome Back</Text>
+          <Text style={styles.subtitle}>Login to your account</Text>
+          <TextInput
+            style={[styles.input, { color: '#fff', backgroundColor: 'rgba(0,0,0,0.3)', borderColor: 'rgba(255,255,255,0.2)' }]}
+            placeholder="Email"
+            placeholderTextColor="#E5E7EB"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={[styles.input, { color: '#fff', backgroundColor: 'rgba(0,0,0,0.3)', borderColor: 'rgba(255,255,255,0.2)' }]}
+            placeholder="Password"
+            placeholderTextColor="#E5E7EB"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+          />
+          {error ? <Text style={styles.errorText}>{error}</Text> : null}
+          <TouchableOpacity style={[styles.button, loading && { opacity: 0.6 }]} onPress={handleLogin} disabled={loading}>
+            <Text style={styles.buttonText}>{loading ? 'Logging In...' : 'Login'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push('/signup')} style={styles.linkContainer}>
+            <Text style={styles.linkText}>Don't have an account? <Text style={styles.linkHighlight}>Sign up</Text></Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 }
@@ -143,5 +152,19 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 8,
     textAlign: 'center',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    zIndex: 10,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    borderRadius: 20,
+    padding: 8,
+  },
+  backArrow: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 }); 

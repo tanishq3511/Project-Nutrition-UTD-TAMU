@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform, View, StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
 import { HapticTab } from '../../components/HapticTab';
 import { IconSymbol } from '../../components/ui/IconSymbol';
@@ -12,16 +13,24 @@ export default function TabLayout() {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light" translucent backgroundColor="transparent" />
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
           headerShown: false,
           tabBarButton: HapticTab,
           tabBarStyle: {
-            backgroundColor: 'rgba(40, 40, 80, 0.5)',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
             height: 90,
-            top: 10,
+            top: 12,
             overflow: 'visible',
+            borderTopWidth: 0,
+            borderTopColor: 'transparent',
+            elevation: 0,
+            shadowOpacity: 0,
+            shadowColor: 'transparent',
+            shadowOffset: { height: 0, width: 0 },
+            shadowRadius: 0,
           },
           tabBarItemStyle: {
             flex: 1,
