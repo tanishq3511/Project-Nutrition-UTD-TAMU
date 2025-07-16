@@ -87,7 +87,7 @@ export default function Preferences() {
         )}
         <TouchableOpacity style={styles.nextButton} onPress={() => {
           const { push } = require('expo-router').useRouter();
-          push('/onboarding/ready');
+          push('/onboarding/school');
         }}>
           <Text style={styles.nextButtonText}>Next</Text>
         </TouchableOpacity>

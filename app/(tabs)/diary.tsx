@@ -8,8 +8,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
+  ImageBackground,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useMealContext } from '../../contexts/MealContext';
 
 // Sample meal data for today
@@ -168,60 +168,64 @@ export default function DiaryScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#3B2F87" />
-      <LinearGradient
-        colors={['#3B2F87', '#6B46C1', '#8B5CF6']}
-        style={StyleSheet.absoluteFillObject}
-      />
-      <View style={{ flex: 1 }}>
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.title}>Diary</Text>
-        </View>
+      <ImageBackground
+        source={require('../../assets/images/bg.jpg')}
+        style={StyleSheet.absoluteFill}
+        resizeMode="contain"
+        imageStyle={{ transform: [{ scale: 4.8 }, { translateX: 90 }] }}
+      >
+        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+          <View style={styles.container}>
+            {/* Header */}
+            <View style={styles.header}>
+            </View>
 
-        {/* Calendar Navigation */}
-        <View style={styles.calendarContainer}>
-          <TouchableOpacity style={styles.arrowButton} onPress={goToPreviousDay}>
-            <Text style={styles.arrowText}>←</Text>
-          </TouchableOpacity>
-          <View style={styles.dateContainer}>
-            <Text style={styles.dateText}>{formatDate(selectedDate)}</Text>
-          </View>
-          <TouchableOpacity style={styles.arrowButton} onPress={goToNextDay}>
-            <Text style={styles.arrowText}>→</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Daily Macro Summary */}
-        <View style={styles.macroSummaryContainer}>
-          <Text style={styles.macroSummaryTitle}>Daily Totals</Text>
-          <View style={styles.macroCardsContainer}>
-            <MacroCard label="Calories" value={dailyTotals.calories} unit="cal" />
-            <MacroCard label="Protein" value={dailyTotals.protein} unit="g" />
-            <MacroCard label="Carbs" value={dailyTotals.carbs} unit="g" />
-            <MacroCard label="Fats" value={dailyTotals.fats} unit="g" />
-          </View>
-        </View>
-
-        {/* Meals List */}
-        <View style={styles.mealsContainer}>
-          <Text style={styles.mealsTitle}>Meals</Text>
-          <ScrollView style={styles.mealsList} showsVerticalScrollIndicator={false}>
-            {meals.length === 0 ? (
-              <View style={styles.emptyState}>
-                <Text style={styles.emptyStateText}>No meals added yet</Text>
-                <Text style={styles.emptyStateSubtext}>Add meals from the dashboard to see them here</Text>
+            {/* Calendar Navigation */}
+            <View style={styles.calendarContainer}>
+              <TouchableOpacity style={styles.arrowButton} onPress={goToPreviousDay}>
+                <Text style={styles.arrowText}>←</Text>
+              </TouchableOpacity>
+              <View style={styles.dateContainer}>
+                <Text style={styles.dateText}>{formatDate(selectedDate)}</Text>
               </View>
-            ) : (
-              meals.map((meal) => (
-                <MealCard 
-                  key={meal.id} 
-                  meal={meal} 
-                  onPress={() => handleMealPress(meal)}
-                />
-              ))
-            )}
-          </ScrollView>
-        </View>
+              <TouchableOpacity style={styles.arrowButton} onPress={goToNextDay}>
+                <Text style={styles.arrowText}>→</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Daily Macro Summary */}
+            <View style={styles.macroSummaryContainer}>
+              <Text style={styles.macroSummaryTitle}>Daily Totals</Text>
+              <View style={styles.macroCardsContainer}>
+                <MacroCard label="Calories" value={dailyTotals.calories} unit="cal" />
+                <MacroCard label="Protein" value={dailyTotals.protein} unit="g" />
+                <MacroCard label="Carbs" value={dailyTotals.carbs} unit="g" />
+                <MacroCard label="Fats" value={dailyTotals.fats} unit="g" />
+              </View>
+            </View>
+
+            {/* Meals List */}
+            <View style={styles.mealsContainer}>
+              <Text style={styles.mealsTitle}>Meals</Text>
+              <View style={styles.mealsList}>
+                {meals.length === 0 ? (
+                  <View style={styles.emptyState}>
+                    <Text style={styles.emptyStateText}>No meals added yet</Text>
+                    <Text style={styles.emptyStateSubtext}>Add meals from the plan to see them here</Text>
+                  </View>
+                ) : (
+                  meals.map((meal) => (
+                    <MealCard 
+                      key={meal.id} 
+                      meal={meal} 
+                      onPress={() => handleMealPress(meal)}
+                    />
+                  ))
+                )}
+              </View>
+            </View>
+          </View>
+        </ScrollView>
 
         {/* Meal Popup */}
         <MealPopup
@@ -230,7 +234,7 @@ export default function DiaryScreen() {
           onClose={() => setMealPopupVisible(false)}
           onRemoveMeal={handleRemoveMeal}
         />
-      </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 }
@@ -238,17 +242,19 @@ export default function DiaryScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3B2F87',
+  },
+  scrollView: {
+    flex: 1,
   },
   header: {
-    paddingTop: 20,
+    paddingTop: 60,
     paddingBottom: 20,
     alignItems: 'center',
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#fff',
   },
   calendarContainer: {
     flexDirection: 'row',
@@ -264,10 +270,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   arrowText: {
     fontSize: 20,
-    color: 'white',
+    color: '#fff',
     fontWeight: 'bold',
   },
   dateContainer: {
@@ -276,7 +284,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 18,
-    color: 'white',
+    color: '#fff',
     fontWeight: '600',
   },
   macroSummaryContainer: {
@@ -286,7 +294,7 @@ const styles = StyleSheet.create({
   macroSummaryTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#fff',
     marginBottom: 15,
   },
   macroCardsContainer: {
@@ -300,56 +308,59 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     flex: 1,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   macroCardValue: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#fff',
     marginBottom: 4,
   },
   macroCardLabel: {
     fontSize: 12,
-    color: '#E5E7EB',
+    color: '#fff',
     opacity: 0.8,
   },
   macroCardUnit: {
     fontSize: 10,
-    color: '#E5E7EB',
+    color: '#fff',
     opacity: 0.6,
   },
   mealsContainer: {
-    flex: 1,
     paddingHorizontal: 20,
+    paddingBottom: 40,
   },
   mealsTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#fff',
     marginBottom: 15,
   },
   mealsList: {
-    flex: 1,
+    gap: 15,
   },
   mealCard: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
     borderRadius: 12,
     padding: 20,
-    marginBottom: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   mealCardInfo: {
     flex: 1,
   },
   mealCardName: {
-    color: 'white',
+    color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 4,
   },
   mealCardCalories: {
-    color: '#E5E7EB',
+    color: '#fff',
     fontSize: 14,
     opacity: 0.8,
   },
@@ -357,13 +368,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   mealCardMacroText: {
-    color: '#E5E7EB',
+    color: '#fff',
     fontSize: 12,
     opacity: 0.8,
     marginBottom: 2,
   },
   emptyState: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 40,
@@ -371,12 +381,12 @@ const styles = StyleSheet.create({
   emptyStateText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#fff',
     marginBottom: 8,
   },
   emptyStateSubtext: {
     fontSize: 14,
-    color: '#E5E7EB',
+    color: '#fff',
     opacity: 0.8,
     textAlign: 'center',
   },
