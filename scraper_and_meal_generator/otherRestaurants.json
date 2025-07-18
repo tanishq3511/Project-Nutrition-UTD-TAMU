@@ -1,0 +1,175 @@
+{
+    "Einstein Bros Bagels" : 
+    [
+    {
+      "name": "Cheddar Cheese Egg White Sandwich",
+      "calories": 490,
+      "protein": 25,
+      "carbs": 57,
+      "fats": 17,
+      "veg": false
+    },
+    {
+      "name": "Ham & Swiss Egg White Sandwich",
+      "calories": 530,
+      "protein": 34,
+      "carbs": 58,
+      "fats": 18,
+      "veg": false
+    },
+    {
+      "name": "Spinach, Mushroom & Swiss Egg White Sandwich",
+      "calories": 560,
+      "protein": 31,
+      "carbs": 54,
+      "fats": 28,
+      "veg": true
+    },
+    {
+      "name": "Turkey Sausage & Cheddar Egg White Sandwich",
+      "calories": 550,
+      "protein": 32,
+      "carbs": 58,
+      "fats": 21,
+      "veg": false
+    },
+    {
+      "name": "Applewood Bacon & Cheddar Egg White Sandwich",
+      "calories": 410,
+      "protein": 22,
+      "carbs": 57,
+      "fats": 10,
+      "veg": false
+    },
+    {
+      "name": "Egg White Sandwich, Bacon Avocado Tomato (Thin)",
+      "calories": 420,
+      "protein": 17,
+      "carbs": 45,
+      "fats": 19,
+      "veg": false
+    },
+    {
+      "name": "Egg White Sandwich, Santa Fe (Thin)",
+      "calories": 410,
+      "protein": 25,
+      "carbs": 42,
+      "fats": 16,
+      "veg": false
+    }
+    ],
+    "Taco Bell Cantina" : [
+      { "name": "Cantina Chicken Bowl",          "calories": 480, "fats": 24,  "carbs": 43,  "protein": 24, "veg": false },
+      { "name": "Cantina Chicken Burrito",          "calories": 540, "fats": 31,  "carbs": 42,  "protein": 24, "veg": false  },
+      { "name": "Cantina Chicken Crispy Taco",          "calories": 280, "fats": 16,  "carbs": 17,  "protein": 15, "veg": false  },
+      { "name": "Cantina Chicken Quesadilla",          "calories": 570, "fats": 32,  "carbs": 42,  "protein": 29, "veg": false  },
+      { "name": "Cantina Chicken Soft Taco",          "calories": 210, "fats": 18,  "carbs": 18,  "protein": 12, "veg": false  }
+    ],
+    "Chick-fil-a" : {
+        "Breakfast": [
+        { "name": "Chick-fil-A Chicken Biscuit",                     "calories": 460, "fats": 23, "carbs": 45,  "protein": 19, "veg": false },
+        { "name": "Spicy Chicken Biscuit",                            "calories": 450, "fats": 22, "carbs": 44,  "protein": 19, "veg": false},
+        { "name": "4 ct Chick-fil-A Chick-n-Minis",                   "calories": 360, "fats": 13, "carbs": 41,  "protein": 20, "veg": false },
+        { "name": "10 ct Chick-fil-A Chick-n-Minis",                  "calories": 910, "fats": 34, "carbs": 103, "protein": 49, "veg": false },
+        { "name": "Egg White Grill",                                  "calories": 300, "fats": 8,  "carbs": 29,  "protein": 27, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ Nuggets",           "calories": 700, "fats": 40, "carbs": 51,  "protein": 34, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ Sausage",           "calories": 720, "fats": 47, "carbs": 46,  "protein": 28, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ Grilled Filet",     "calories": 650, "fats": 36, "carbs": 46,  "protein": 36, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ Spicy Chicken",     "calories": 660, "fats": 37, "carbs": 54,  "protein": 28, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ Bacon",             "calories": 680, "fats": 42, "carbs": 46,  "protein": 30, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ No Meat",           "calories": 580, "fats": 34, "carbs": 47,  "protein": 22, "veg": true },
+        { "name": "Hash Brown Scramble Burrito w/ Nuggets - no hash browns",       "calories": 550, "fats": 30, "carbs": 38,  "protein": 33, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ Sausage - no hash browns",       "calories": 570, "fats": 37, "carbs": 34,  "protein": 26, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ Grilled Filet - no hash browns", "calories": 500, "fats": 26, "carbs": 34,  "protein": 35, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ Spicy Chicken - no hash browns", "calories": 530, "fats": 27, "carbs": 40,  "protein": 31, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ Bacon - no hash browns",         "calories": 540, "fats": 32, "carbs": 34,  "protein": 27, "veg": false },
+        { "name": "Hash Brown Scramble Burrito w/ No Meat - no hash browns",       "calories": 440, "fats": 24, "carbs": 35,  "protein": 21, "veg": true },
+        { "name": "Hash Brown Scramble Bowl w/ Nuggets",               "calories": 470, "fats": 30, "carbs": 19,  "protein": 29, "veg": false },
+        { "name": "Hash Brown Scramble Bowl w/ Sausage",               "calories": 480, "fats": 37, "carbs": 15,  "protein": 23, "veg": false },
+        { "name": "Hash Brown Scramble Bowl w/ Grilled Filet",         "calories": 420, "fats": 26, "carbs": 15,  "protein": 31, "veg": false },
+        { "name": "Hash Brown Scramble Bowl w/ Spicy Chicken",         "calories": 490, "fats": 32, "carbs": 22,  "protein": 28, "veg": false },
+        { "name": "Hash Brown Scramble Bowl w/ Bacon",                 "calories": 450, "fats": 32, "carbs": 15,  "protein": 23, "veg": false },
+        { "name": "Hash Brown Scramble Bowl w/ No Meat",               "calories": 350, "fats": 24, "carbs": 16,  "protein": 17, "veg": true },
+        { "name": "Hash Brown Scramble Bowl w/ Nuggets - no hash browns",        "calories": 320, "fats": 20, "carbs": 7,   "protein": 28, "veg": false },
+        { "name": "Hash Brown Scramble Bowl w/ Sausage - no hash browns",        "calories": 340, "fats": 27, "carbs": 2,   "protein": 21, "veg": false },
+        { "name": "Hash Brown Scramble Bowl w/ Grilled Filet - no hash browns","calories": 270, "fats": 16, "carbs": 2,   "protein": 30, "veg": false },
+        { "name": "Hash Brown Scramble Bowl w/ Spicy Chicken - no hash browns","calories": 340, "fats": 21, "carbs": 10,  "protein": 27, "veg": false },
+        { "name": "Hash Brown Scramble Bowl w/ Bacon - no hash browns",       "calories": 300, "fats": 22, "carbs": 2,   "protein": 22, "veg": false },
+        { "name": "Hash Brown Scramble Bowl w/ No Meat - no hash browns",     "calories": 200, "fats": 14, "carbs": 3,   "protein": 16, "veg": true },
+        { "name": "Chicken, Egg & Cheese Biscuit",                      "calories": 550, "fats": 28, "carbs": 48,  "protein": 27, "veg": false },
+        { "name": "Bacon, Egg & Cheese Biscuit",                       "calories": 420, "fats": 23, "carbs": 38,  "protein": 15, "veg": false },
+        { "name": "Sausage, Egg & Cheese Biscuit",                     "calories": 620, "fats": 42, "carbs": 38,  "protein": 22, "veg": false },
+        { "name": "Chicken, Egg & Cheese Muffin",                      "calories": 410, "fats": 18, "carbs": 36,  "protein": 27, "veg": false },
+        { "name": "Bacon, Egg & Cheese Muffin",                       "calories": 300, "fats": 13, "carbs": 28,  "protein": 16, "veg": false },
+        { "name": "Sausage, Egg & Cheese Muffin",                     "calories": 490, "fats": 32, "carbs": 29,  "protein": 23, "veg": false },
+        { "name": "Small Hash Browns",                                "calories": 270, "fats": 18, "carbs": 23,  "protein": 3, "veg": true  },
+        { "name": "Large Hash Browns",                                "calories": 420, "fats": 29, "carbs": 35,  "protein": 4, "veg": true  },
+        { "name": "Berry Parfait",                                    "calories": 270, "fats": 9,  "carbs": 35,  "protein": 13, "veg": true },
+        { "name": "Berry Parfait w/ Cookie Crumbs",                   "calories": 240, "fats": 8,  "carbs": 31,  "protein": 12, "veg": true },
+        { "name": "Berry Parfait w/ Granola",                         "calories": 270, "fats": 9,  "carbs": 35,  "protein": 13, "veg": true },
+        { "name": "Fruit Cup",                                        "calories": 70,  "fats": 0,  "carbs": 16,  "protein": 1, "veg": true  },
+        { "name": "Small Fruit Cup",                                  "calories": 60,  "fats": 0,  "carbs": 14,  "protein": 1, "veg": true  }
+        ],
+        "Entrees": [
+        { "name": "2 ct Chick-n-Strips", "calories": 200, "protein": 19, "carbs": 11, "fats": 9, "veg": false},
+        { "name": "3 ct Chick-n-Strips", "calories": 310, "protein": 29, "carbs": 16, "fats": 14, "veg": false},
+        { "name": "4 ct Chick-n-Strips", "calories": 410, "protein": 39, "carbs": 22, "fats": 19, "veg": false},
+        { "name": "8 ct Grilled Nuggets",                       "calories": 130, "fats": 3,   "carbs": 1,  "protein": 25, "veg": false },
+        { "name": "12 ct Grilled Nuggets",                      "calories": 200, "fats": 4.5, "carbs": 2,  "protein": 38, "veg": false },
+        { "name": "30 ct Grilled Nuggets",                      "calories": 510, "fats": 11,  "carbs": 4,  "protein": 98, "veg": false },
+        { "name": "8 ct Chick-fil-A Nuggets",                  "calories": 250, "fats": 11,  "carbs": 11, "protein": 27, "veg": false },
+        { "name": "12 ct Chick-fil-A Nuggets",                 "calories": 380, "fats": 17,  "carbs": 16, "protein": 40, "veg": false },
+        { "name": "Cobb Salad w/ Grilled Filet",                "calories": 830, "fats": 60,  "carbs": 31, "protein": 42, "veg": false },
+        { "name": "Market Salad",                               "calories": 550, "fats": 31,  "carbs": 42, "protein": 28, "veg": false },
+        { "name": "Spicy Southwest Salad",                      "calories": 680, "fats": 49,  "carbs": 27, "protein": 33, "veg": false },
+        { "name": "Chick-fil-A Cool Wrap", "calories": 660, "protein": 43, "carbs": 32, "fats": 45, "veg": false},
+        { "name": "Chick-fil-A Chicken Sandwich",                    "calories": 420, "fats": 18, "carbs": 41,  "protein": 29 , "veg": false},
+        { "name": "Chick-fil-A Deluxe Sandwich w/ American",         "calories": 490, "fats": 22, "carbs": 43,  "protein": 32 , "veg": false},
+        { "name": "Chick-fil-A Deluxe Sandwich w/ Colby Jack",       "calories": 510, "fats": 24, "carbs": 43,  "protein": 34 , "veg": false},
+        { "name": "Chick-fil-A Deluxe Sandwich w/ Pepper Jack",      "calories": 520, "fats": 24, "carbs": 43,  "protein": 35 , "veg": false},
+        { "name": "Chick-fil-A Deluxe Sandwich w/ No Cheese",        "calories": 430, "fats": 18, "carbs": 43,  "protein": 29 , "veg": false},
+        { "name": "Spicy Chicken Sandwich",                           "calories": 450, "fats": 19, "carbs": 45,  "protein": 28 , "veg": false},
+        { "name": "Spicy Deluxe Sandwich w/ Pepper Jack",             "calories": 540, "fats": 26, "carbs": 47,  "protein": 34 , "veg": false},
+        { "name": "Spicy Deluxe Sandwich w/ American",                "calories": 510, "fats": 23, "carbs": 47,  "protein": 31 , "veg": false},
+        { "name": "Spicy Deluxe Sandwich w/ Colby Jack",              "calories": 540, "fats": 26, "carbs": 47,  "protein": 34 , "veg": false},
+        { "name": "Spicy Deluxe Sandwich w/ No Cheese",               "calories": 460, "fats": 19, "carbs": 46,  "protein": 28 , "veg": false},
+        { "name": "Grilled Chicken Sandwich",                         "calories": 390, "fats": 11, "carbs": 45,  "protein": 28 , "veg": false}
+        ]
+    },
+    "Halal Shack": [
+        { "name": "Rice Bowl with Chicken", "calories": 570, "fats": 18, "carbs": 42, "protein": 31, "veg": false},
+        { "name": "Rice Bowl with Beef", "calories": 710, "fats": 22, "carbs": 58, "protein": 34, "veg": false},
+        { "name": "Rice Bowl with Hummus", "calories": 360, "fats": 19, "carbs": 48, "protein": 16, "veg": true},
+        { "name": "Rice Bowl with Falafel", "calories": 490, "fats": 24, "carbs": 48, "protein": 15, "veg": true},
+        { "name": "Rice Bowl with Chicken and Beef", "calories": 610, "fats": 20, "carbs": 50, "protein": 33, "veg": false},
+        { "name": "Naan Roll with Chicken", "calories": 667, "fats": 21, "carbs": 46, "protein": 31, "veg": false},
+        { "name": "Naan Roll with Beef", "calories": 810, "fats": 24, "carbs": 58, "protein": 34, "veg": false}
+    ],
+    "Panda Express" : [
+      { "name": "Chow Mein",                    "calories": 500, "fats": 23,  "carbs": 61,  "protein": 18 },
+      { "name": "Fried Rice",                   "calories": 530, "fats": 16,  "carbs": 82,  "protein": 12 },
+      { "name": "Steamed Rice",                 "calories": 380, "fats": 0,   "carbs": 86,  "protein": 7  },
+      { "name": "Eggplant & Tofu",              "calories": 310, "fats": 24,  "carbs": 20,  "protein": 7  },
+      { "name": "Mixed Veggies (Side)",         "calories": 70,  "fats": 0.5, "carbs": 13,  "protein": 4  },
+      { "name": "Mixed Veggies (Entree)",       "calories": 35,  "fats": 0,   "carbs": 7,   "protein": 2  },
+      { "name": "Black Pepper Chicken",         "calories": 250, "fats": 14,  "carbs": 12,  "protein": 19 },
+      { "name": "Kung Pao Chicken",             "calories": 280, "fats": 18,  "carbs": 12,  "protein": 18 },
+      { "name": "Mushroom Chicken",             "calories": 220, "fats": 13,  "carbs": 9,   "protein": 17 },
+      { "name": "Orange Chicken",               "calories": 420, "fats": 21,  "carbs": 43,  "protein": 15 },
+      { "name": "String Bean Chicken Breast",   "calories": 170, "fats": 7,   "carbs": 13,  "protein": 15 },
+      { "name": "SweetFire Chicken Breast™",    "calories": 440, "fats": 18,  "carbs": 53,  "protein": 17 },
+      { "name": "Sweet & Sour Chicken Breast",  "calories": 380, "fats": 17,  "carbs": 40,  "protein": 15 },
+      { "name": "Beijing Beef™",                "calories": 690, "fats": 40,  "carbs": 57,  "protein": 26 },
+      { "name": "Broccoli Beef",                "calories": 130, "fats": 4,   "carbs": 13,  "protein": 10 },
+      { "name": "Sweet & Sour Pork",            "calories": 390, "fats": 21,  "carbs": 44,  "protein": 10 },
+      { "name": "Crispy Shrimp",                "calories": 260, "fats": 13,  "carbs": 26,  "protein": 9  },
+      { "name": "Honey Walnut Shrimp",          "calories": 370, "fats": 23,  "carbs": 27,  "protein": 14 },
+      { "name": "Grilled Teriyaki Chicken",     "calories": 300, "fats": 13,  "carbs": 8,  "protein": 36 }
+    ],
+    "Papa John's Pizza" : [
+        {"name": "Cheese Personal Pizza", "calories": 800, "fats": 28, "carbs": 100, "protein": 32, "veg": true},
+        {"name": "Pepperoni Personal Pizza", "calories": 880, "fats": 40, "carbs": 100, "protein": 32, "veg": false},
+        {"name": "Garden Fresh Personal Pizza", "calories": 760, "fats": 24, "carbs": 104, "protein": 28, "veg": true},
+        {"name": "6 Piece Chicken Wings", "calories": 660, "fats": 41, "carbs": 6, "protein": 50, "veg": false}
+    ]
+}
