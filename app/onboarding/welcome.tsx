@@ -35,7 +35,7 @@ ations</Text>
             <Text style={[styles.featureText, { color: '#fff' }]}>AI NutriBot for support</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.transparentButton} onPress={() => router.push('/onboarding/personalInformation')}>
+        <TouchableOpacity style={styles.transparentButton} onPress={() => router.push('/onboarding/school')}>
           <Text style={styles.transparentButtonText}>Get Started</Text>
         </TouchableOpacity>
       </View>

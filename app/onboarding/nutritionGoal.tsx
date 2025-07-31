@@ -37,7 +37,10 @@ export default function NutritionGoal() {
             </TouchableOpacity>
           ))}
         </View>
-        <TouchableOpacity style={styles.continueButton} onPress={() => router.push('/onboarding/preferences')}>
+        <TouchableOpacity
+          style={styles.continueButton}
+          onPress={() => router.push({ pathname: '/onboarding/personalInformation', params: { goal: options[selected] } })}
+        >
           <Text style={styles.continueButtonText}>Continue</Text>
         </TouchableOpacity>
       </View>

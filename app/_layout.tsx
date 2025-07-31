@@ -33,8 +33,11 @@ export default function RootLayout() {
           <Stack.Screen name="ready" options={{ headerShown: false }} />
           <Stack.Screen name="login" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding/welcomeFirst" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding/school" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding/welcome" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding/personalInformation" options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding/macroResults" options={{ headerShown: false }} />
+
           <Stack.Screen name="onboarding/nutritionGoal" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding/preferences" options={{ headerShown: false }} />
           <Stack.Screen name="onboarding/ready" options={{ headerShown: false }} />

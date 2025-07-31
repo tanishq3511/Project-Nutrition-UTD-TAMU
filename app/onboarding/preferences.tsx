@@ -45,18 +45,6 @@ export default function Preferences() {
         </TouchableOpacity>
         <Text style={styles.title}>Preferences & Restrictions</Text>
         <Text style={styles.subtitle}>How should we tailor your meals?</Text>
-        <Text style={styles.sectionLabel}>Dietary Preferences</Text>
-        <View style={styles.dietaryRow}>
-          {dietaryOptions.map(option => (
-            <TouchableOpacity
-              key={option}
-              style={[styles.dietaryPill, selectedDietary.includes(option) ? styles.dietaryPillSelected : styles.dietaryPillUnselected]}
-              onPress={() => toggleDietary(option)}
-            >
-              <Text style={[styles.dietaryPillText, selectedDietary.includes(option) ? styles.dietaryPillTextSelected : styles.dietaryPillTextUnselected]}>{option}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
         <Text style={styles.sectionLabel}>Restrictions</Text>
         {restrictionsOptions.map((option, idx) => (
           <TouchableOpacity
@@ -85,10 +73,7 @@ export default function Preferences() {
             onChangeText={setMacros}
           />
         )}
-        <TouchableOpacity style={styles.nextButton} onPress={() => {
-          const { push } = require('expo-router').useRouter();
-          push('/onboarding/school');
-        }}>
+        <TouchableOpacity style={styles.nextButton} onPress={() => router.push('/onboarding/nutritionGoal')}>
           <Text style={styles.nextButtonText}>Next</Text>
         </TouchableOpacity>
       </ScrollView>

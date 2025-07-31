@@ -13,7 +13,7 @@ const macros = [
   { label: 'Fats', value: 85, goal: 100 },
 ];
 
-const weeklyIntake = [2000, 2200, 1800, 2500, 0, 0, 0]; // Example data for S-M
+const weeklyIntake = [2000, 2200, 1800, 2500, 0, 0, 0]; 
 
 export default function Dashboard() {
   return (
@@ -29,9 +29,9 @@ export default function Dashboard() {
           <View style={styles.header}>
             <View style={styles.logoContainer}>
               <Text style={styles.logoIcon}>🍽️</Text>
-              <Text style={styles.logoText}>NutriBot</Text>
+              <Text style={styles.logoText}>SmartBite</Text>
             </View>
-            <Text style={styles.welcomeText}>Welcome back, Anish!</Text>
+            <Text style={styles.welcomeText}>Welcome back, Dhivyesh!</Text>
             <Text style={styles.subtitle}>Here's your daily meal summary:</Text>
           </View>
 

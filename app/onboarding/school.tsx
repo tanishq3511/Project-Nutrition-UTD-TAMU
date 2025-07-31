@@ -48,7 +48,7 @@ export default function School() {
         </View>
         <TouchableOpacity
           style={[styles.nextButton, !selected && { opacity: 0.5 }]}
-          onPress={() => selected && router.push('/onboarding/ready')}
+          onPress={() => selected && router.push('/onboarding/preferences')}
           disabled={!selected}
         >
           <Text style={styles.nextButtonText}>Next</Text>
