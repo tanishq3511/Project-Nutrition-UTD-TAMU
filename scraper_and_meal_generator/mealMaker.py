@@ -141,7 +141,7 @@ def main():
         max_calories = calories_per_meal * 1.2
 
     parser = argparse.ArgumentParser(description="Generate a meal from today’s combined menu")
-    parser.add_argument("--menu-file", default="current_menu.json",
+    parser.add_argument("--menu-file", default="menu.json",
                         help="Path to the JSON with all periods + restaurants")
     parser.add_argument("--source", default="Lunch",
                         help="Key in the JSON to pull items from (e.g. Lunch, Panda Express)")

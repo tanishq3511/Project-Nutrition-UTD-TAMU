@@ -1,0 +1,97 @@
+{
+  "Breakfast": [],
+  "Lunch": [
+    {
+      "name": "Vegetable Quesadilla",
+      "station": "Grill",
+      "calories": 230,
+      "protein": 9,
+      "carbs": 16,
+      "fats": 14,
+      "veg": true
+    },
+    {
+      "name": "Pepperoni Pizza",
+      "station": "The Kitchen",
+      "calories": 230,
+      "protein": 10,
+      "carbs": 34,
+      "fats": 6,
+      "veg": true
+    },
+    {
+      "name": "Cilantro Lime",
+      "station": "Pure Eats",
+      "calories": 220,
+      "protein": 5,
+      "carbs": 45,
+      "fats": 1,
+      "veg": true
+    },
+    {
+      "name": "Stewed Pinto Beans with Tomatoes and Onions",
+      "station": "Pure Eats",
+      "calories": 70,
+      "protein": 4,
+      "carbs": 12,
+      "fats": 1,
+      "veg": true
+    }
+  ],
+  "Dinner": [
+    {
+      "name": "Vegetable Quesadilla",
+      "station": "Grill",
+      "calories": 230,
+      "protein": 9,
+      "carbs": 16,
+      "fats": 14,
+      "veg": true
+    },
+    {
+      "name": "Greek Plain Yogurt",
+      "station": "Grill",
+      "calories": 90,
+      "protein": 11,
+      "carbs": 5,
+      "fats": 2,
+      "veg": true
+    },
+    {
+      "name": "The Kitchen Penne Pasta",
+      "station": "The Kitchen",
+      "calories": 110,
+      "protein": 0,
+      "carbs": 0,
+      "fats": 0,
+      "veg": true
+    },
+    {
+      "name": "Marinara Sauce Garlic Marinara Sauce",
+      "station": "The Kitchen",
+      "calories": 40,
+      "protein": 2,
+      "carbs": 7,
+      "fats": 1,
+      "veg": true
+    },
+    {
+      "name": "Pepperoni Pizza",
+      "station": "The Kitchen",
+      "calories": 230,
+      "protein": 10,
+      "carbs": 34,
+      "fats": 6,
+      "veg": true
+    },
+    {
+      "name": "Greek Plain Yogurt",
+      "station": "Pantry",
+      "calories": 90,
+      "protein": 11,
+      "carbs": 5,
+      "fats": 2,
+      "veg": true
+    }
+  ]
+}
