@@ -12,6 +12,8 @@ import {
   ImageBackground
 } from 'react-native';
 import { useMealContext } from '../../contexts/MealContext';
+import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 // Test meal data
 const testMeals = [
@@ -171,6 +173,7 @@ export default function PlanScreen() {
   const [mealPopupVisible, setMealPopupVisible] = useState(false);
   const [currentMeal, setCurrentMeal] = useState<any>(null);
   const { addMeal } = useMealContext();
+  const router = useRouter();
 
   const handleRestaurantPress = (restaurantId: number) => {
     setExpandedRestaurant(expandedRestaurant === restaurantId ? null : restaurantId);
@@ -269,6 +272,14 @@ export default function PlanScreen() {
             onAddToDiary={handleAddToDiary}
             onGenerateAnother={handleGenerateAnother}
           />
+          
+          {/* Floating Action Button */}
+          <TouchableOpacity 
+            style={styles.fabButton} 
+            onPress={() => router.push('/logFood' as any)}
+          >
+            <Ionicons name="add" size={24} color="#fff" />
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -546,5 +557,21 @@ const styles = StyleSheet.create({
     color: '#3B2F87',
     fontSize: 16,
     fontWeight: '600',
+  },
+  fabButton: {
+    position: 'absolute',
+    bottom: 30,
+    right: 20,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: '#6B46C1',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
   },
 }); 
