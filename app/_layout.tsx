@@ -8,6 +8,8 @@ import { Platform } from 'react-native';
 
 import { useColorScheme } from '../hooks/useColorScheme';
 import { MealProvider } from '../contexts/MealContext';
+import { ChatProvider } from '../contexts/ChatContext';
+import { UserProvider } from '../contexts/UserContext';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -21,32 +23,36 @@ export default function RootLayout() {
   }
 
   return (
-    <MealProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="signup" options={{ headerShown: false }} />
-          <Stack.Screen name="welcome" options={{ headerShown: false }} />
-          <Stack.Screen name="personalInformation" options={{ headerShown: false }} />
-          <Stack.Screen name="nutritionGoal" options={{ headerShown: false }} />
-          <Stack.Screen name="preferences" options={{ headerShown: false }} />
-          <Stack.Screen name="ready" options={{ headerShown: false }} />
-          <Stack.Screen name="login" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding/welcomeFirst" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding/school" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding/welcome" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding/personalInformation" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding/macroResults" options={{ headerShown: false }} />
+    <UserProvider>
+      <MealProvider>
+        <ChatProvider>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="signup" options={{ headerShown: false }} />
+              <Stack.Screen name="welcome" options={{ headerShown: false }} />
+              <Stack.Screen name="personalInformation" options={{ headerShown: false }} />
+              <Stack.Screen name="nutritionGoal" options={{ headerShown: false }} />
+              <Stack.Screen name="preferences" options={{ headerShown: false }} />
+              <Stack.Screen name="ready" options={{ headerShown: false }} />
+              <Stack.Screen name="login" options={{ headerShown: false }} />
+              <Stack.Screen name="onboarding/welcomeFirst" options={{ headerShown: false }} />
+              <Stack.Screen name="onboarding/school" options={{ headerShown: false }} />
+              <Stack.Screen name="onboarding/welcome" options={{ headerShown: false }} />
+              <Stack.Screen name="onboarding/personalInformation" options={{ headerShown: false }} />
+              <Stack.Screen name="onboarding/macroResults" options={{ headerShown: false }} />
 
-          <Stack.Screen name="onboarding/nutritionGoal" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding/preferences" options={{ headerShown: false }} />
-          <Stack.Screen name="onboarding/ready" options={{ headerShown: false }} />
-          <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="onboarding/nutritionGoal" options={{ headerShown: false }} />
+              <Stack.Screen name="onboarding/preferences" options={{ headerShown: false }} />
+              <Stack.Screen name="onboarding/ready" options={{ headerShown: false }} />
+              <Stack.Screen name="index" options={{ headerShown: false }} />
 
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <StatusBar style="auto" />
-      </ThemeProvider>
-    </MealProvider>
+              <Stack.Screen name="+not-found" />
+            </Stack>
+            <StatusBar style="auto" />
+          </ThemeProvider>
+        </ChatProvider>
+      </MealProvider>
+    </UserProvider>
   );
 }

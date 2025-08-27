@@ -8,6 +8,8 @@ export interface Meal {
   carbs: number;
   fats: number;
   date?: string; // ISO date string
+  brand?: string; // Brand name for branded products
+  timestamp?: Date; // When the meal was added
 }
 
 interface MealContextType {

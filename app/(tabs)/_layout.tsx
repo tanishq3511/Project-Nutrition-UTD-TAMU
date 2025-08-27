@@ -7,6 +7,7 @@ import { HapticTab } from '../../components/HapticTab';
 import { IconSymbol } from '../../components/ui/IconSymbol';
 import { Colors } from '../../constants/Colors';
 import { useColorScheme } from '../../hooks/useColorScheme';
+import ChatTabIcon from '../../components/ChatTabIcon';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -61,7 +62,7 @@ export default function TabLayout() {
           name="more"
           options={{
             title: 'More',
-            tabBarIcon: ({ color }) => <IconSymbol size={28} name="ellipsis.circle" color={color} />,
+            tabBarIcon: ({ color }) => <ChatTabIcon size={28} color={color} />,
           }}
         />
       </Tabs>

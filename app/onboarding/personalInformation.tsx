@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, ImageBackgr
 import { Ionicons } from '@expo/vector-icons';
 // Modal import removed, switching to inline dropdown
 import { useRouter } from 'expo-router';
+import { useUser } from '../../contexts/UserContext';
 
 type HeightOption = { label: string; value: number };
 const heightOptions: HeightOption[] = [];
@@ -35,6 +36,7 @@ export default function PersonalInformation() {
   const router = useRouter();
   const params = useLocalSearchParams<{ goal?: string }>();
   const goal = params.goal || '';
+  const { setUserProfile } = useUser();
 
   return (
     <ImageBackground
@@ -237,6 +239,24 @@ export default function PersonalInformation() {
               ? 10 * w + 6.25 * h - 5 * a + 5
               : 10 * w + 6.25 * h - 5 * a - 161;
             const tdee = Math.round(bmr * activity);
+            
+            // Calculate height in feet and inches
+            const heightFeet = Math.floor(hInches / 12);
+            const heightInches = hInches % 12;
+            
+            // Save user profile
+            setUserProfile({
+              weight: wLbs,
+              height: hInches,
+              age: a,
+              gender,
+              activityLevel: activity,
+              nutritionGoal: goal,
+              tdee,
+              heightFeet,
+              heightInches
+            });
+            
             router.push({ pathname: '/onboarding/macroResults', params: { tdee: tdee.toString(), goal } });
           }}>
             <Text style={[styles.continueButtonText, { color: '#fff' }]}>Calculate TDEE</Text>
