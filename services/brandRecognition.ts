@@ -124,13 +124,7 @@ export const BRAND_DATABASE: { [key: string]: BrandInfo } = {
     commonProducts: ['organic yogurt', 'milk', 'smoothies'],
     nutritionProfile: 'organic'
   },
-  'chobani': {
-    name: 'Chobani',
-    aliases: ['chobani', 'chobani greek', 'chobani yogurt'],
-    category: 'dairy',
-    commonProducts: ['greek yogurt', 'oat milk', 'almond milk'],
-    nutritionProfile: 'high-protein'
-  }
+  // (no duplicate entries)
 };
 
 // Enhanced brand recognition with fuzzy matching
@@ -274,21 +268,23 @@ export class BrandRecognitionService {
 
   // Get nutrition profile for brand
   private getBrandNutritionProfile(brand: BrandInfo): any {
+    // Return numeric macro estimates where possible so the chatbot can display calories/protein/carbs/fat
+    // Values are approximate per common serving and can be overridden by more specific product data later.
     switch (brand.nutritionProfile) {
       case 'high-protein':
-        return { protein: 'High', carbs: 'Low-Moderate', fat: 'Low-Moderate' };
+        return { calories: 150, protein: 15, carbs: 8, fat: 5, descriptor: 'High-Protein' };
       case 'low-carb':
-        return { protein: 'Moderate-High', carbs: 'Very Low', fat: 'Moderate-High' };
+        return { calories: 180, protein: 14, carbs: 5, fat: 12, descriptor: 'Low-Carb' };
       case 'organic':
-        return { organic: true, natural: true };
+        return { calories: null, protein: null, carbs: null, fat: null, descriptor: 'Organic' };
       case 'vegan':
-        return { vegan: true, plantBased: true };
+        return { calories: 160, protein: 8, carbs: 20, fat: 6, descriptor: 'Vegan' };
       case 'gluten-free':
-        return { glutenFree: true };
+        return { calories: null, protein: null, carbs: null, fat: null, descriptor: 'Gluten-Free' };
       case 'keto-friendly':
-        return { keto: true, lowCarb: true, highFat: true };
+        return { calories: 220, protein: 10, carbs: 4, fat: 20, descriptor: 'Keto-Friendly' };
       default:
-        return { standard: true };
+        return { calories: null, protein: null, carbs: null, fat: null, descriptor: 'Standard' };
     }
   }
 

@@ -144,7 +144,7 @@ export const AIConfig = {
   
   // Configuration for Gemini service
   gemini: {
-    apiKey: 'AIzaSyAh4oo2fhG58cWEB-I1JeAmnoDzeIIgGoo',
+  apiKey: 'AIzaSyAh4oo2fhG58cWEB-I1JeAmnoDzeIIgGoo',
     model: 'gemini-1.5-flash',
   },
   

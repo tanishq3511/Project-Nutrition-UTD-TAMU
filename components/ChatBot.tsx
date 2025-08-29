@@ -229,7 +229,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
         protein,
         carbs,
         fats,
-        offerMessage: `Would you like me to add ${displayName} to your diary? (${calories} calories, ${protein}g protein, ${carbs}g carbs, ${fats}g fat)`
+        offerMessage: `Would you like me to add ${displayName} to your diary? (${calories || 'N/A'} calories, ${protein || 'N/A'}g protein, ${carbs || 'N/A'}g carbs, ${fats || 'N/A'}g fat)`
       };
     }
 
@@ -307,7 +307,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
   };
 
   // Generate AI response using the configured AI service
-  const generateAIResponse = async (userMessage: string): Promise<string> => {
+  const generateAIResponse = async (userMessage: string): Promise<{ text: string; webSearchResults: any[] }> => {
     try {
       // Build personalized context based on user profile
       let userContext = '';
@@ -343,10 +343,23 @@ USER PROFILE:
       if (isNutritionQuery) {
         try {
           console.log('Performing web search for nutrition query:', userMessage);
-          const searchResults = await defaultWebSearchService.searchNutrition(userMessage);
-          webSearchResults = searchResults;
-          useWebSearch = searchResults.length > 0;
-          console.log('Web search results:', searchResults);
+          // Prefer a single, best nutrition result if available
+          if (typeof (defaultWebSearchService as any).getBestNutrition === 'function') {
+            const best = await (defaultWebSearchService as any).getBestNutrition(userMessage);
+            if (best) {
+              webSearchResults = [best];
+              useWebSearch = true;
+            } else {
+              const searchResults = await defaultWebSearchService.searchNutrition(userMessage);
+              webSearchResults = searchResults;
+              useWebSearch = searchResults.length > 0;
+            }
+          } else {
+            const searchResults = await defaultWebSearchService.searchNutrition(userMessage);
+            webSearchResults = searchResults;
+            useWebSearch = searchResults.length > 0;
+          }
+          console.log('Web search results:', webSearchResults);
         } catch (error) {
           console.error('Web search error:', error);
           // Continue without web search if it fails
@@ -424,13 +437,13 @@ User Question: ${userMessage}`;
       // Ensure response is not too long (limit to ~1500 characters for full responses)
       const maxLength = 1500;
       if (response.text.length > maxLength) {
-        return response.text.substring(0, maxLength) + '...';
+        return { text: response.text.substring(0, maxLength) + '...', webSearchResults };
       }
       
-      return response.text;
+      return { text: response.text, webSearchResults };
     } catch (error) {
       console.error('AI service error:', error);
-      return "I'm sorry, I'm having trouble connecting to my AI service right now. Please try again later.";
+      return { text: "I'm sorry, I'm having trouble connecting to my AI service right now. Please try again later.", webSearchResults: [] };
     }
   };
 
@@ -451,7 +464,9 @@ User Question: ${userMessage}`;
 
     try {
       // Generate AI response for complex questions
-      const aiResponse = await generateAIResponse(userMessage);
+  const aiResponseObj = await generateAIResponse(userMessage);
+  const aiResponse = aiResponseObj.text;
+  const webSearchResultsFromAI = aiResponseObj.webSearchResults || [];
       
       // Check if the AI response contains nutrition information and offer to add to diary
       // Only offer diary integration for specific food calorie queries or meal recommendations
@@ -474,8 +489,35 @@ User Question: ${userMessage}`;
       let hasDiaryOffer = false;
       if (isFoodCalorieQuery || isMealRecommendationQuery) {
         console.log('Diary integration triggered for:', userMessage);
-        const diaryOffer = parseAndOfferDiary(aiResponse, userMessage);
-        console.log('Diary offer result:', diaryOffer);
+        // Prefer structured nutrition from web search when available
+        let diaryOffer = null;
+        if (webSearchResultsFromAI.length > 0 && webSearchResultsFromAI[0].nutritionInfo) {
+          const info = webSearchResultsFromAI[0].nutritionInfo;
+          const foodNameFromQuery = userMessage;
+          // Merge with AI-parsed values if some macros are missing
+          const parsedFromAI: any = parseAndOfferDiary(aiResponse, userMessage) || {};
+          const caloriesVal = info.calories ?? parsedFromAI.calories ?? null;
+          const proteinVal = info.protein ?? parsedFromAI.protein ?? null;
+          const carbsVal = info.carbs ?? parsedFromAI.carbs ?? null;
+          const fatsVal = (info.fat ?? info.fats) ?? parsedFromAI.fats ?? null;
+
+          diaryOffer = {
+            foodName: foodNameFromQuery,
+            brandName: undefined,
+            originalFoodName: foodNameFromQuery,
+            calories: caloriesVal,
+            protein: proteinVal,
+            carbs: carbsVal,
+            fats: fatsVal,
+            offerMessage: `Would you like me to add ${foodNameFromQuery} to your diary? (${caloriesVal ?? 'N/A'} calories, ${proteinVal ?? 'N/A'}g protein, ${carbsVal ?? 'N/A'}g carbs, ${fatsVal ?? 'N/A'}g fat)`
+          };
+          console.log('Using web search nutrition for diary offer:', diaryOffer);
+        } else {
+          const parsed = parseAndOfferDiary(aiResponse, userMessage);
+          diaryOffer = parsed;
+          console.log('Diary offer result from AI parsing:', diaryOffer);
+        }
+
         if (diaryOffer) {
           setPendingDiaryOffer(diaryOffer);
           hasDiaryOffer = true;
